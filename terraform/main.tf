@@ -11,11 +11,11 @@ terraform {
       version = "~> 4.47.0"
     }
   }
-#  backend "s3" {
-#    bucket = "bucket-for-terraform-state-ts-lambda"
-#    key    = "my_lambda/terraform.tfstate"
-#    region = "eu-central-1"
-#  }
+  backend "s3" {
+    bucket = "bucket-for-terraform-state-ts-lambda"
+    key    = "my_lambda/terraform.tfstate"
+    region = "eu-central-1"
+  }
 }
 
 provider "aws" {
