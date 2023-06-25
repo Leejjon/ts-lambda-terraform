@@ -49,10 +49,10 @@ resource "aws_iam_role" "ts_lambda_role" {
 
 
 resource "aws_lambda_function" "ts_lambda" {
-  filename      = "src/lambda_function_${var.lambdasVersion}.zip"
+  filename      = "zips/lambda_function_${var.lambdasVersion}.zip"
   function_name = "ts_lambda"
   role          = aws_iam_role.ts_lambda_role.arn
-  handler       = "ts.handler"
+  handler       = "index.handler"
   runtime       = "nodejs18.x"
   memory_size   = 1024
   timeout       = 300
