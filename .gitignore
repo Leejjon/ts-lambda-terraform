@@ -1,4 +1,6 @@
 .idea/
 lambda/node_modules
+lambda/dist
 terraform/.terraform
 terraform/.terraform.lock.hcl
+terraform/tfplan

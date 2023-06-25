@@ -31,48 +31,43 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 
-#resource "aws_iam_role" "ts_lambda_role" {
-#  name               = "ts_lambda-role"
-#  assume_role_policy = jsonencode({
-#    Version   = "2012-10-17"
-#    Statement = [
-#      {
-#        Action    = "sts:AssumeRole"
-#        Effect    = "Allow"
-#        Principal = {
-#          Service = "lambda.amazonaws.com"
-#        }
-#      }
-#    ]
-#  })
-#}
-#
-#resource "aws_iam_role_policy" "ts_lambda_role_policy" {
-#  policy = data.aws_iam_policy_document.ts_lambda_policy.json
-#  role   = aws_iam_role.ts_lambda_role
-#  name   = "my-lambda-policy"
-#}
-#
-#resource "aws_lambda_function" "ts_lambda" {
-#  filename      = "src/lambda_function_${var.lambdasVersion}.zip"
-#  function_name = "ts_lambda"
-#  role          = aws_iam_role.ts_lambda_role.arn
-#  handler       = "ts.handler"
-#  runtime       = "nodejs18.x"
-#  memory_size   = 1024
-#  timeout       = 300
-#  environment {
-#    variables = {
-#      DATA_BUCKET = "TEST_ENV"
-#    }
-#  }
-#}
-#
+resource "aws_iam_role" "ts_lambda_role" {
+  name               = "ts_lambda-role"
+  assume_role_policy = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+
+resource "aws_lambda_function" "ts_lambda" {
+  filename      = "src/lambda_function_${var.lambdasVersion}.zip"
+  function_name = "ts_lambda"
+  role          = aws_iam_role.ts_lambda_role.arn
+  handler       = "ts.handler"
+  runtime       = "nodejs18.x"
+  memory_size   = 1024
+  timeout       = 300
+  environment {
+    variables = {
+      DATA_BUCKET = "TEST_ENV"
+    }
+  }
+}
+
 #resource "aws_cloudwatch_log_group" "ts_lambda_loggroup" {
 #  name              = "/aws/lambda/${aws_lambda_function.ts_lambda.function_name}"
 #  retention_in_days = 3
 #}
-#
+
 #data "aws_iam_policy_document" "ts_lambda_policy" {
 #  statement {
 #    actions = [
@@ -87,4 +82,9 @@ resource "aws_s3_bucket" "terraform_state" {
 #    ]
 #  }
 #}
-#
+
+#resource "aws_iam_role_policy" "ts_lambda_role_policy" {
+#  policy = data.aws_iam_policy_document.ts_lambda_policy.json
+#  role   = aws_iam_role.ts_lambda_role
+#  name   = "my-lambda-policy"
+#}
