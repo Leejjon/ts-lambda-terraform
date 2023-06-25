@@ -1,4 +1,5 @@
 .idea/
+lambda/src/*.js
 lambda/node_modules
 lambda/dist
 terraform/.terraform
