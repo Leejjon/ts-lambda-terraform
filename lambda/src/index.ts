@@ -1,7 +1,7 @@
 export const handler = async (
     event: any
 ): Promise<any> => {
-    const message = "Hello World3!";
+    const message = "Hello World!";
     console.log(`Returning ${message}`);
     return {
         statusCode: 200,

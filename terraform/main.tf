@@ -56,11 +56,6 @@ resource "aws_lambda_function" "ts_lambda" {
   runtime       = "nodejs18.x"
   memory_size   = 1024
   timeout       = 300
-  environment {
-    variables = {
-      DATA_BUCKET = "TEST_ENV"
-    }
-  }
 }
 
 #resource "aws_cloudwatch_log_group" "ts_lambda_loggroup" {
