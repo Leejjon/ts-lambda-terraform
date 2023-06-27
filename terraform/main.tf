@@ -85,4 +85,7 @@ resource "aws_iam_role_policy" "ts_lambda_role_policy" {
 resource "aws_lambda_function_url" "ts_lambda_funtion_url" {
   function_name      = aws_lambda_function.ts_lambda.id
   authorization_type = "NONE"
+  cors {
+    allow_origins = ["*"]
+  }
 }
