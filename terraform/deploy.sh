@@ -12,7 +12,7 @@ function deploy {
   cp -r ./src/*.js dist/ &&\
   cp -r ./node_modules dist/ &&\
   cd dist &&\
-  #find . -name "*.zip" -type f -delete && \
+  find . -name "*.zip" -type f -delete && \
   # Zip everything in the dist folder and
   zip -r ../../terraform/zips/lambda_function_"$TIMESTAMP".zip . && \
   cd .. && rm -rf dist &&\

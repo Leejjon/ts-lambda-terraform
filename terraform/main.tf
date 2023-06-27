@@ -58,28 +58,26 @@ resource "aws_lambda_function" "ts_lambda" {
   timeout       = 300
 }
 
-#resource "aws_cloudwatch_log_group" "ts_lambda_loggroup" {
-#  name              = "/aws/lambda/${aws_lambda_function.ts_lambda.function_name}"
-#  retention_in_days = 3
-#}
+resource "aws_cloudwatch_log_group" "ts_lambda_loggroup" {
+  name              = "/aws/lambda/${aws_lambda_function.ts_lambda.function_name}"
+  retention_in_days = 3
+}
 
-#data "aws_iam_policy_document" "ts_lambda_policy" {
-#  statement {
-#    actions = [
-#      "logs:CreateLogGroup",
-#      "logs:CreateLogStream",
-#      "logs:PutLogEvents",
-#      "logs:DeleteLogGroup"
-#    ],
-#    resources = [
-#      aws_cloudwatch_log_group.ts_lambda_loggroup.arn,
-#      "${aws_cloudwatch_log_group.ts_lambda_loggroup.arn}:*"
-#    ]
-#  }
-#}
+data "aws_iam_policy_document" "ts_lambda_policy" {
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = [
+      aws_cloudwatch_log_group.ts_lambda_loggroup.arn,
+      "${aws_cloudwatch_log_group.ts_lambda_loggroup.arn}:*"
+    ]
+  }
+}
 
-#resource "aws_iam_role_policy" "ts_lambda_role_policy" {
-#  policy = data.aws_iam_policy_document.ts_lambda_policy.json
-#  role   = aws_iam_role.ts_lambda_role
-#  name   = "my-lambda-policy"
-#}
+resource "aws_iam_role_policy" "ts_lambda_role_policy" {
+  policy = data.aws_iam_policy_document.ts_lambda_policy.json
+  role   = aws_iam_role.ts_lambda_role.id
+  name   = "my-lambda-policy"
+}
