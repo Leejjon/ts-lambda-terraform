@@ -81,3 +81,8 @@ resource "aws_iam_role_policy" "ts_lambda_role_policy" {
   role   = aws_iam_role.ts_lambda_role.id
   name   = "my-lambda-policy"
 }
+
+resource "aws_lambda_function_url" "ts_lambda_funtion_url" {
+  function_name      = aws_lambda_function.ts_lambda.id
+  authorization_type = "NONE"
+}
